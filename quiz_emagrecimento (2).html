@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz de Emagrecimento</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #FF6F61, #FFCA28);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .quiz-container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.25);
+      width: 380px;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    h1 {
+      color: #FF6F61;
+      margin-bottom: 15px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #444;
+    }
+    .options button {
+      display: block;
+      margin: 12px auto;
+      padding: 12px;
+      width: 85%;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #FF6F61, #FFCA28);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.3s;
+    }
+    .options button:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+    #result {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>🔥 Quiz de Emagrecimento 🔥</h1>
+    <h2 id="question">Pergunta aqui</h2>
+    <div class="options" id="options"></div>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    const quiz = [
+      {
+        question: "Qual é a bebida mais indicada para acompanhar uma dieta saudável?",
+        options: ["Refrigerante", "Água", "Suco industrializado"],
+        answer: "Água"
+      },
+      {
+        question: "O que é mais indicado para um lanche da tarde saudável?",
+        options: ["Frutas", "Salgadinho de pacote", "Refrigerante"],
+        answer: "Frutas"
+      },
+      {
+        question: "Qual hábito acelera o emagrecimento de forma saudável?",
+        options: ["Atividade física regular", "Dormir pouco", "Pular refeições"],
+        answer: "Atividade física regular"
+      },
+      {
+        question: "Qual é uma boa escolha para café da manhã?",
+        options: ["Pão integral com ovo", "Coxinha frita", "Bolo cheio de açúcar"],
+        answer: "Pão integral com ovo"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      if (currentQuestion < quiz.length) {
+        document.getElementById("question").textContent = quiz[currentQuestion].question;
+        let optionsHTML = "";
+        quiz[currentQuestion].options.forEach(option => {
+          optionsHTML += `<button onclick=\"checkAnswer('${option}')\">${option}</button>`;
+        });
+        document.getElementById("options").innerHTML = optionsHTML;
+      } else {
+        document.getElementById("question").style.display = "none";
+        document.getElementById("options").style.display = "none";
+        document.getElementById("result").textContent = `✅ Concluído! Você acertou ${score} de ${quiz.length} perguntas.`;
+      }
+    }
+
+    function checkAnswer(selected) {
+      if (selected === quiz[currentQuestion].answer) {
+        score++;
+      }
+      currentQuestion++;
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
